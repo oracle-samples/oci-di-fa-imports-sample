@@ -1,44 +1,105 @@
-*This repository acts as a template for all of Oracle’s GitHub repositories. It contains information about the guidelines for those repositories. All files and sections contained in this template are mandatory, and a GitHub app ensures alignment with these guidelines. To get started with a new repository, replace the italic paragraphs with the respective text for your project.*
+# How to Zip files from an Oracle Cloud Infrastructure Object Storage service bucket, using Oracle Cloud Infrastructure  Functions for Fusion SaaS data load.
 
-# Project name
+## Introduction
 
-*Describe your project's features, functionality and target audience*
+This is a sample code for an Oracle Functions written in Golang that can be used in an OCI Data Integration (DI) Pipeline
+to zip files generated from an OCI DI Dataflow for Fusion SaaS data load.
+
+## The Solution
+![](diagram.drawio.png)
+
+For more information please refer to [the blog post](https://www.ateam-oracle.com/post/using-oci-di-and-functions-for-fusion-saas-data-load).
+
+## Services used in this example
+
+* [Oracle Cloud Functions](https://docs.oracle.com/en-us/iaas/Content/Functions/Concepts/functionsoverview.htm)
+* [Oracle Cloud Data Integration](https://docs.oracle.com/en-us/iaas/data-integration/using/overview.htm)
+* [Oracle API Gateway](https://docs.oracle.com/en-us/iaas/Content/APIGateway/Concepts/apigatewayoverview.htm)
+
+### About Oracle Cloud Functions (Fn)
+[Oracle Functions](https://docs.oracle.com/en-us/iaas/Content/Functions/home.htm#top) is a fully managed, multi-tenant, highly scalable, on-demand, Functions-as-a-Service platform. It is built on enterprise-grade Oracle Cloud Infrastructure and powered by the Fn Project open source engine. Use Oracle Functions (sometimes abbreviated to just Functions) when you want to focus on writing code to meet business needs.
+
+### About Oracle Cloud Data Integration
+
+[Data Integration](https://docs.oracle.com/en-us/iaas/data-integration/using/overview.htm) is a fully managed, multi-tenant service that helps data engineers and ETL developers with common extract, transform, and load (ETL) tasks such as ingesting data from a variety of data assets; cleansing, transforming, and reshaping that data; and efficiently loading it to target data assets.
+
+### About Oracle API Gateway
+
+The Oracle API Gateway service enables you to publish APIs with private endpoints that are accessible from within your network, and which you can expose with public IP addresses if you want them to accept internet traffic. The endpoints support API validation, request and response transformation, CORS, authentication and authorization, and request limiting.
+
+## How it works
+
+The function will read the transformed files from the requested bucket, zip the files and upload to the requested bucket.
+
+If the upload process is completed with success the original file is deleted.
 
 ## Installation
 
-*Provide detailed step-by-step installation instructions. You can name this section **How to Run** or **Getting Started** instead of **Installation** if that's more acceptable for your project*
+### Pre-requisites
 
-## Documentation
+Ensure Oracle Cloud Functions is installed and that you can deploy a simple Golang based cloud function. If you haven't already installed and configured Oracle Cloud Functions then we can recommend going through the [Oracle Cloud Functions quickstart ](https://www.oracle.com/webfolder/technetwork/tutorials/infographics/oci_faas_gettingstarted_quickview/functions_quickview_top/functions_quickview/index.html) as this will not only help you setup and configure your environment but also show you how to deploy some sample Oracle Cloud Functions.
 
-*Developer-oriented documentation can be published on GitHub, but all product documentation must be published on <https://docs.oracle.com>*
+### Deployment
+```
+fn deploy --app <app-name>
+```
 
-## Examples
+### Request
 
-*Describe any included examples or provide a link to a demo/tutorial*
+The expected request payload example :
 
-## Help
+```
+{
+  "namespace": "mynamespace",
+  "sourceBucketName": "erp-transformed",
+  "targetBucketName": "erp-zip",
+  "prefix": "ArUpdCustomers"
+}
+```
+**namespace** : bucket namespace
 
-*Inform users on where to get help or how to receive official support from Oracle (if applicable)*
+**sourceBucketName** : Transformed file source bucket name
+
+**targetBucketName** : Target bucket name where the zip files are going to be uploaded
+
+**prefix** : Folder name where the files are going to be read and copied from
+
+
+### Invoke
+
+```
+echo -n '{"namespace":"mynamespace","sourceBucketName":"erp-transformed","targetBucketName":"erp-zip","prefix":"ArUpdateCustomer"}' | fn invoke <app-name> zipfiles
+```
+
+### Response
+
+Response example :
+```
+{
+  "ProcessedWithSuccess": [
+    "customer-import/part-00000-2374e489-0ffd-47d1-8eb8-9eb623d65986-c000.csv"
+  ],
+  "ProcessedWithError": [
+    {
+      "Name": "customer-import/part-objecterror.csv",
+      "Error": "file error deleting object from original storage"
+    }
+  ]
+}
+```
+## Security
+
+Oracle takes security seriously and has a dedicated response team for [reporting security vulnerabilities](./SECURITY.md) and to answer any security and vulnerability related questions.
 
 ## Contributing
 
-*If your project has specific contribution requirements, update the CONTRIBUTING.md file to ensure those requirements are clearly explained*
+We welcome all contributions to this sample and have a [contribution guide](./CONTRIBUTING.md) for you to follow if you'd like to contribute.
 
-This project welcomes contributions from the community. Before submitting a pull request, please [review our contribution guide](./CONTRIBUTING.md)
+## Help
 
-## Security
+If you need help with this sample, please log an issue within this repository and the code owners will help out where we can.
 
-Please consult the [security guide](./SECURITY.md) for our responsible security vulnerability disclosure process
 
-## License
+*Developers choosing to distribute a binary implementation of this project are responsible for obtaining and providing all required licenses and copyright notices for the third-party code used in order to ensure compliance with their respective open source licenses.*
 
-*The correct copyright notice format for both documentation and software is*
-    "Copyright (c) [year,] year Oracle and/or its affiliates."
-*You must include the year the content was first released (on any platform) and the most recent year in which it was revised*
-
-Copyright (c) 2023 Oracle and/or its affiliates.
-
-*Replace this statement if your project is not licensed under the UPL*
-
-Released under the Universal Permissive License v1.0 as shown at
-<https://oss.oracle.com/licenses/upl/>.
+Copyright (c) 2022, Oracle and/or its affiliates. Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.

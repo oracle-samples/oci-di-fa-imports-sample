@@ -1,0 +1,10 @@
+# Copyright (c) 2022, Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
+schema_version: 20180708
+name: zipfiles
+version: 0.0.65
+runtime: go
+build_image: fnproject/go:1.19-dev
+run_image: fnproject/go:1.19
+entrypoint: ./func
