@@ -1,9 +1,8 @@
-# How to Zip files from an Oracle Cloud Infrastructure Object Storage service bucket, using Oracle Cloud Infrastructure  Functions for Fusion SaaS data load.
+# OCI Data Integration and Cloud Functions Sample
 
 ## Introduction
 
-This is a sample code for an Oracle Functions written in Golang that can be used in an OCI Data Integration (DI) Pipeline
-to zip files generated from an OCI DI Dataflow for Fusion SaaS data load.
+This is a sample code for an Oracle Functions written in Golang that can be used in an OCI Data Integration (DI) Pipeline to zip files generated from an OCI DI Dataflow for Fusion SaaS data load.
 
 ## The Solution
 ![](diagram.drawio.png)
