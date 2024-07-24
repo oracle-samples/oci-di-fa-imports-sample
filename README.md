@@ -99,7 +99,11 @@ We welcome all contributions to this sample and have a [contribution guide](./CO
 
 If you need help with this sample, please log an issue within this repository and the code owners will help out where we can.
 
+## License
 
 *Developers choosing to distribute a binary implementation of this project are responsible for obtaining and providing all required licenses and copyright notices for the third-party code used in order to ensure compliance with their respective open source licenses.*
 
-Copyright (c) 2022, Oracle and/or its affiliates. Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+Copyright (c) 2024 Oracle and/or its affiliates. 
+
+Released under the Universal Permissive License v1.0 as shown at
+<https://oss.oracle.com/licenses/upl/>.
