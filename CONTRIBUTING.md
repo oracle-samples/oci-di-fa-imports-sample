@@ -2,7 +2,7 @@
 
 We welcome your contributions! There are multiple ways to contribute.
 
-## Issues
+## Opening issues
 
 For bugs or enhancement requests, please file a GitHub issue unless it's security related. When filing a bug remember that the better written the bug is, the more likely it is to be fixed. If you think you've found a security vulnerability, do not raise a GitHub issue and follow the instructions on our [Security Policy](./SECURITY.md).
 
@@ -43,6 +43,5 @@ your changes. Ensure that you reference the issue you created as well.
 
 Follow the [Golden Rule](https://en.wikipedia.org/wiki/Golden_Rule). If you'd like more specific guidelines see the [Contributor Covenant Code of Conduct](https://www.contributor-covenant.org/version/1/4/code-of-conduct/)
 
-Copyright (c) 2021, Oracle and/or its affiliates.
-Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
-
+[OCA]: https://oca.opensource.oracle.com
+[COC]: https://www.contributor-covenant.org/version/1/4/code-of-conduct/
